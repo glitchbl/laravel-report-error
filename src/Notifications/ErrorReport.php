@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Packages\Src\Notifications;
+namespace Glitchbl\ReportError\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Log\Events\MessageLogged;

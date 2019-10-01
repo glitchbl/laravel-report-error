@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Packages\Src\Listeners;
+namespace Glitchbl\ReportError\Listeners;
 
 use Illuminate\Log\Events\MessageLogged;
 use App\Packages\Src\Notifications\ErrorReport;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Packages\Src\Notifiables;
+namespace Glitchbl\ReportError\Notifiables;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;

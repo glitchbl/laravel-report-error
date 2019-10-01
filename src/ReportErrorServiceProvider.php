@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Packages\Src;
+namespace Glitchbl\ReportError;
 
 use Illuminate\Support\ServiceProvider;
 
