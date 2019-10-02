@@ -3,8 +3,8 @@
 namespace Glitchbl\ReportError\Listeners;
 
 use Illuminate\Log\Events\MessageLogged;
-use App\Packages\Src\Notifications\ErrorReport;
-use App\Packages\Src\Notifiables\User;
+use Glitchbl\ReportError\Notifications\ErrorReport;
+use Glitchbl\ReportError\Notifiables\User;
 
 class MessageLoggedListener
 {
