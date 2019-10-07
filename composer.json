@@ -1,11 +1,22 @@
 {
     "name": "glitchbl/laravel-report-error",
     "description": "Laravel Report Error",
-    "require": {},
-    "require-dev": {},
+    "require": {
+        "laravel/framework": "^5.4|^6"
+    },
+    "require-dev": {
+        "laravel/framework": "^6",
+        "phpunit/phpunit": "^8.0",
+        "orchestra/testbench": "^4.0"
+    },
     "autoload": {
         "psr-4": {
             "Glitchbl\\ReportError\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Glitchbl\\ReportError\\Tests\\": "tests"
         }
     },
     "extra": {

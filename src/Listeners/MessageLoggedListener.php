@@ -26,8 +26,19 @@ class MessageLoggedListener
      */
     public function handle(MessageLogged $event)
     {
-        if (!in_array($event->level, config('report-error.levels')))
+        $levels = config('report-error.levels', []);
+        $ignores = config('report-error.ignores', []);
+
+        if (is_array($levels) && !in_array($event->level, $levels))
             return;
+
+        if (is_array($ignores)) {
+            foreach ($ignores as $ignore) {
+                if (strpos($event->message, $ignore) !== false)
+                    return;
+            }
+        }
+        
         $user = new User();
         $user->email = config('report-error.email');
         $user->notify(new ErrorReport($event));
