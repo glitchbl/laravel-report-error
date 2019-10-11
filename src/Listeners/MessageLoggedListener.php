@@ -2,9 +2,9 @@
 
 namespace Glitchbl\ReportError\Listeners;
 
+use Glitchbl\ReportError\Mail\Error as Email;
+use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Log\Events\MessageLogged;
-use Glitchbl\ReportError\Notifications\ErrorReport;
-use Glitchbl\ReportError\Notifiables\User;
 
 class MessageLoggedListener
 {
@@ -39,8 +39,7 @@ class MessageLoggedListener
             }
         }
         
-        $user = new User();
-        $user->email = config('report-error.email');
-        $user->notify(new ErrorReport($event));
+        $email = config('report-error.email');
+        app(Mailer::class)->to($email)->send(new Email($event));
     }
 }

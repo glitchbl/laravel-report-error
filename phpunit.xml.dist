@@ -20,6 +20,7 @@
         </whitelist>
     </filter>
     <php>
+        <env name="APP_ENV" value="production"/>
         <env name="MAIL_DRIVER" value="sendmail"/>
         <env name="MAIL_HOST" value=""/>
         <env name="MAIL_PORT" value=""/>

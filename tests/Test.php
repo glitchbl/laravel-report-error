@@ -2,40 +2,32 @@
 
 namespace Glitchbl\ReportError\Tests;
 
-use Illuminate\Mail\Events\MessageSending;
-use Event;
-use Log;
+use Glitchbl\ReportError\Mail\Error as Email;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 class Test extends TestCase
 {
-    public function test_mail()
+    public function test_email()
     {
-        $_SERVER['__report-error.test'] = false;
-        $log_message = uniqid();
-        Event::listen(MessageSending::class, function ($event) use ($log_message) {
-            $passed = true;
-            if ($event->data['subject'] !== 'Laravel - Report - Error') 
-                $passed = false;
-            if (!isset($event->data['introLines'][0]) || $event->data['introLines'][0] !== $log_message) 
-                $passed = false;
-            $_SERVER['__report-error.test'] = $passed;
+        Mail::fake();
+        Log::error('test');
+        Mail::assertSent(Email::class, function ($mail) {
+            $mail->build();
+            return $mail->hasTo(config('report-error.email')) &&
+                   $mail->subject == 'Laravel - Report - Error' &&
+                   $mail->event->level == 'error' &&
+                   $mail->event->message == 'test';
         });
-        Log::error($log_message);
-        $this->assertTrue($_SERVER['__report-error.test']);
-        Event::flush(MessageSending::class);
     }
 
     public function test_ignores()
     {
         config()->set('report-error.levels', ['error']);
         config()->set('report-error.ignores', ['should not trigger']);
-        $_SERVER['__report-error.test'] = true;
-        Event::listen(MessageSending::class, function ($event) {
-            $_SERVER['__report-error.test'] = false;
-        });
-        Log::error('this error should not trigger event');
+        Mail::fake();
+        Log::error('this error should not trigger the event');
         Log::info('neither this one');
-        $this->assertTrue($_SERVER['__report-error.test']);
-        Event::flush(MessageSending::class);
+        Mail::assertNotSent(Email::class);
     }
 }

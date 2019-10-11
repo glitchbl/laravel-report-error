@@ -15,10 +15,12 @@ class ReportErrorServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $source = realpath(__DIR__ . '/../config/report-error.php');
+        $source = realpath(__DIR__.'/../config/report-error.php');
         $this->publishes([$source => config_path('report-error.php')]);
         $this->mergeConfigFrom($source, 'report-error');
-        $this->app['events']->listen(MessageLogged::class, MessageLoggedListener::class);
+        $this->loadViewsFrom(__DIR__.'/../views', 'report-error');
+        if (config('app.env', 'production') == 'production')
+            $this->app['events']->listen(MessageLogged::class, MessageLoggedListener::class);
     }
 
     /**
