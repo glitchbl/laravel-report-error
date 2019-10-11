@@ -15,7 +15,7 @@ class Test extends TestCase
         Mail::assertSent(Email::class, function ($mail) {
             $mail->build();
             return $mail->hasTo(config('report-error.email')) &&
-                   $mail->subject == 'Laravel - Report - Error' &&
+                   $mail->subject == config('app.name') . ' - Report - Error' &&
                    $mail->event->level == 'error' &&
                    $mail->event->message == 'test';
         });
