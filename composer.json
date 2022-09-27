@@ -2,7 +2,7 @@
     "name": "glitchbl/laravel-report-error",
     "description": "Laravel Report Error",
     "require": {
-        "laravel/framework": "^5.4|^6|^7|^8"
+        "laravel/framework": "^5.4|^6|^7|^8|^9"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.0",
